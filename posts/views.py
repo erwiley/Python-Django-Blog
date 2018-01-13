@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse, HttpResponseRedirect
@@ -26,6 +27,7 @@ def post_detail(request, slug=None):
     context = {
         "title": instance.title,
         "instance": instance,
+        "media_url": settings.AWS_S3_URL,
         "share_string": share_string
     }
     return render(request, 'post_detail.html', context)
@@ -47,6 +49,7 @@ def post_list(request):
     context = {
         "object_list": queryset,
         "title": "List",
+        "media_url": settings.AWS_S3_URL,
         "page_request_var":page_request_var
     }
     return render(request, 'post_list.html', context)
